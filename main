@@ -1,0 +1,51 @@
+from art import logo
+from random import randint
+
+# Easy mode gets 10 attempts
+EASY_LEVEL = 10
+# Hard mode gets 5 attempts
+HARD_LEVEL = 5
+
+
+def compare(guess, answer, turns):
+  if answer > guess:
+    print("\nToo low.")
+    return turns - 1
+  elif answer < guess:
+    print("\nToo high.")
+    return turns - 1
+  else:
+    print(f"You got it! The answer was {answer}.")
+
+
+def level_difficulty():
+  level = input("Type 'easy' for 10 guesses or 'hard' for 5 guesses: ")
+  if level == "easy":
+    return EASY_LEVEL
+  elif level == "hard":
+    return HARD_LEVEL
+  
+guess = []
+
+def play_game():
+  print(logo)
+  print("Welcome to Guess the Number!\n")
+  print("Guess a number between 1 and 100. \n")
+  answer = randint(1, 100)
+  # Spoiler alert - remove for game play
+  #print(f"The correct answer is {answer}.")
+
+  turns = level_difficulty()
+  guess = 0
+  while guess != answer:
+    print(f"You have {turns} attempts remaining to guess the number.\n")
+    guess = int(input("Make a guess between 1 and 100: "))
+
+    turns = compare(guess, answer, turns)
+    if turns == 0:
+      print(f"You've used all of your guesses. You lose. The answer was {answer}.")
+      return
+    elif guess != answer:
+      print("Guess again.")
+
+play_game()
